@@ -1,0 +1,36 @@
+#!/bin/sh
+
+case "$1" in
+	-u| --upload)
+	ORIGINAL_DIR="$PWD"
+	cp $2 "$BASE_DIR""/docs/"
+	cd "$BASE_DIR"
+
+	python3 main.py
+
+	# TODO add git stuff
+
+	cd "$ORIGINAL_DIR"
+	break
+	;;
+	-h| --help)
+	echo "Usage: p-cli [OPTION]... [FILE]..."
+	echo ""
+	echo "POSSIBLE ERRORS: "
+	echo ""
+	echo "#1. BASE_DIR enviornment variable is not set"
+	echo "#2. python3 is not installed"
+	echo "#3. Github has no ssh key"
+	echo "#4. Your directory setup in BASE_DIR is wrong"
+	echo "#5. requirements.txt has not been met"
+	echo ""
+	echo "OPTION: "
+	echo ""
+	echo "-h | --help : output help"
+	echo "-u | --upload [FILE] : upload your file"
+	echo "-l | --list : lists files in your BASE_DIR docs folder"
+	echo ""
+	;;
+	-l| --list)
+	ls "$BASE_DIR""/docs/"
+esac
